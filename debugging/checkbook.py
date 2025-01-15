@@ -1,65 +1,59 @@
 class Checkbook:
     def __init__(self):
-        # Initialize the checkbook with a balance of 0.0
         self.balance = 0.0
 
     def deposit(self, amount):
-        # Add the deposited amount to the balance
+        """Ajoute un montant au solde."""
+        if amount < 0:
+            print("Amount cannot be negative. Please try again.")
+            return
         self.balance += amount
-        print("Deposited ${:.2f}".format(amount))
-        print("Current Balance: ${:.2f}".format(self.balance))
+        print(f"Deposited ${amount:.2f}")
+        print(f"Current Balance: ${self.balance:.2f}")
 
     def withdraw(self, amount):
-        # Withdraw the specified amount if sufficient funds are available
+        """Retire un montant du solde, si suffisant."""
+        if amount < 0:
+            print("Amount cannot be negative. Please try again.")
+            return
         if amount > self.balance:
             print("Insufficient funds to complete the withdrawal.")
         else:
             self.balance -= amount
-            print("Withdrew ${:.2f}".format(amount))
-            print("Current Balance: ${:.2f}".format(self.balance))
+            print(f"Withdrew ${amount:.2f}")
+            print(f"Current Balance: ${self.balance:.2f}")
 
     def get_balance(self):
-        # Display the current balance
-        print("Current Balance: ${:.2f}".format(self.balance))
+        """Affiche le solde actuel."""
+        print(f"Current Balance: ${self.balance:.2f}")
+
 
 def main():
-    # Create a new Checkbook instance
     cb = Checkbook()
     while True:
-        # Prompt the user for an action
-        action = input("What would you like to do? (deposit, withdraw, balance, exit): ")
-        if action.lower() == 'exit':
-            # Exit the program if the user types 'exit'
+        action = input("What would you like to do? (deposit, withdraw, "
+                       "balance, exit): ").strip().lower()
+
+        if action == 'exit':
+            print("Goodbye!")
             break
-        elif action.lower() == 'deposit':
+        elif action == 'deposit':
             try:
-                # Prompt the user to enter the deposit amount
                 amount = float(input("Enter the amount to deposit: $"))
-                if amount <= 0:
-                    print("Please enter a positive amount.")
-                else:
-                    cb.deposit(amount)
+                cb.deposit(amount)
             except ValueError:
-                # Handle invalid (non-numeric) input
-                print("Invalid input. Please enter a numeric value.")
-        elif action.lower() == 'withdraw':
+                print("Invalid input. Please enter a valid number.")
+        elif action == 'withdraw':
             try:
-                # Prompt the user to enter the withdrawal amount
                 amount = float(input("Enter the amount to withdraw: $"))
-                if amount <= 0:
-                    print("Please enter a positive amount.")
-                else:
-                    cb.withdraw(amount)
+                cb.withdraw(amount)
             except ValueError:
-                # Handle invalid (non-numeric) input
-                print("Invalid input. Please enter a numeric value.")
-        elif action.lower() == 'balance':
-            # Show the current balance
+                print("Invalid input. Please enter a valid number.")
+        elif action == 'balance':
             cb.get_balance()
         else:
-            # Handle invalid action commands
             print("Invalid command. Please try again.")
 
+
 if __name__ == "__main__":
-    # Run the main function if the script is executed directly
     main()
