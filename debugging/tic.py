@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 
+
 def print_board(board):
     for row in board:
         print(" | ".join(row))
         print("-" * 5)
+
 
 def check_winner(board):
     for row in board:
@@ -11,7 +13,8 @@ def check_winner(board):
             return True
 
     for col in range(len(board[0])):
-        if board[0][col] == board[1][col] == board[2][col] and board[0][col] != " ":
+        if (board[0][col] == board[1][col] == board[2][col]
+                and board[0][col] != " "):
             return True
 
     if board[0][0] == board[1][1] == board[2][2] and board[0][0] != " ":
@@ -22,11 +25,10 @@ def check_winner(board):
 
     return False
 
+
 def is_board_full(board):
-    for row in board:
-        if " " in row:
-            return False
-    return True
+    return all(" " not in row for row in board)
+
 
 def tic_tac_toe():
     board = [[" "]*3 for _ in range(3)]
@@ -35,7 +37,8 @@ def tic_tac_toe():
         print_board(board)
         try:
             row = int(input(f"Enter row (0, 1, or 2) for player {player}: "))
-            col = int(input(f"Enter column (0, 1, or 2) for player {player}: "))
+            col = int(input(f"Enter column (0, 1,"
+                            "or 2) for player {player}: "))
             if row not in [0, 1, 2] or col not in [0, 1, 2]:
                 print("Invalid input! Please enter numbers between 0 and 2.")
                 continue
@@ -57,4 +60,6 @@ def tic_tac_toe():
         else:
             print("That spot is already taken! Try again.")
 
-tic_tac_toe()
+
+if __name__ == "__main__":
+    tic_tac_toe()
